@@ -1,0 +1,633 @@
+% ===================================================================
+% 线性代数（数学三）—— 插入到主文档「十一、线性代数」处
+% 依赖主文档已有宏：\secbox  \formbox  \bx  \cond  \hd
+% ===================================================================
+
+% -------------------------------------------------------------------
+\begin{secbox}[十一、线性代数 · \textcircled{1} 行列式]
+
+\begin{formbox}
+\bx{
+|A|=\sum_{j=1}^{n}a_{1j}A_{1j}
+=\sum_{i=1}^{n}a_{i1}A_{i1}
+}
+\hfill（按任一行或任一列展开）
+
+\bx{
+\sum_{j=1}^{n}a_{ij}A_{kj}=\delta_{ik}\,|A|
+}
+\hfill\note{（$i,k\in\{1,\dots,n\}$，即 $i=k$ 时等于 $|A|$，$i\ne k$ 时等于 $0$）}
+\end{formbox}
+
+\begin{formbox}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{7.4cm}p{8.6cm}@{}}
+$|A|=|A^{T}|$
+  & 转置行列式不变 \\[4pt]
+$|kA|=k^{n}|A|$
+  & 数乘：$n$ 阶乘 $k^{n}$ \\[4pt]
+$|AB|=|A||B|$
+  & 乘积行列式 \\[4pt]
+$|A+B|\ne|A|+|B|$
+  & \textbf{不可}像行列式那样拆开相加 \\[4pt]
+交换任意两行（列）$\Rightarrow|A|$ 变号
+  & $k$ 次交换则乘 $(-1)^{k}$ \\[4pt]
+某行（列）$\times k\Rightarrow|A|\times k$
+  & 某行（列）$\div k\Rightarrow|A|\div k$ \\[4pt]
+某行（列）$+k\times$另一行（列）$\Rightarrow|A|$ 不变
+  & 连续作两次 $\Rightarrow$ 不变
+\end{tabular}
+\end{formbox}
+
+\begin{formbox}
+\renewcommand{\arraystretch}{1.6}
+\[
+\text{三角行列式：}\quad
+\left|\begin{matrix}a_{11}& & \\ &\ddots& \\ &&a_{nn}\end{matrix}\right|
+=\prod_{i=1}^{n}a_{ii}
+\qquad\text{（上、下三角同）}
+\]
+\[
+\text{范德蒙德行列式：}\quad
+\left|\begin{matrix}
+1&1&\cdots&1\\
+x_{1}&x_{2}&\cdots&x_{n}\\
+x_{1}^{2}&x_{2}^{2}&\cdots&x_{n}^{2}\\
+\vdots&\vdots&&\vdots\\
+x_{1}^{n-1}&x_{2}^{n-1}&\cdots&x_{n}^{n-1}
+\end{matrix}\right|
+=\prod_{1\le i<j\le n}\left(x_{j}-x_{i}\right)
+\]
+\[
+\text{分块三角行列式：}\quad
+\begin{vmatrix}A&B\\ O&C\end{vmatrix}=|A||C|,
+\qquad
+\begin{vmatrix}A&O\\ C&D\end{vmatrix}=|A||D|
+\]
+\[
+\text{反对称矩阵（}\ n\ \text{为奇数）：}\quad
+A^{T}=-A\ \Rightarrow\ |A|=0
+\qquad
+\text{（偶数阶一般不为零）}
+\]
+\[
+\text{含两行（列）相同或成比例：}\quad |A|=0
+\qquad
+\text{含零行（列）：}\quad |A|=0
+\]
+\end{formbox}
+\end{secbox}
+
+% -------------------------------------------------------------------
+\begin{secbox}[十二、线性代数 · \textcircled{2} 矩阵]
+
+\begin{formbox}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{7.4cm}p{8.6cm}@{}}
+$(AB)^{T}=B^{T}A^{T}$
+  & 转置反序 \\[3pt]
+$(kA)\pm lB=k(A\pm lB)$，$AB+AC=A(B+C)$
+  & 线性运算 \\[3pt]
+$(AB)C=A(BC)$
+  & 结合律成立、乘法不满足交换律 \\[3pt]
+$kA\cdot lB=kl\,(AB)$
+  & 数乘可提
+\end{tabular}
+
+\medskip
+\hd{逆矩阵（$A$ 为 $n$ 阶方阵，$|A|\ne0$）}
+\[
+(A^{-1})^{-1}=A,\qquad (A^{T})^{-1}=(A^{-1})^{T},
+\qquad (kA)^{-1}=\frac{1}{k}A^{-1}
+\]
+\[
+\bx{(AB)^{-1}=B^{-1}A^{-1}}\quad\text{（逆序！高频错点）}
+\]
+\end{formbox}
+
+\begin{formbox}
+$A$ 可逆的等价结论（任一条成立即可断定可逆）：
+\[
+\bx{
+|A|\ne0\iff r(A)=n\iff Ax=\boldsymbol0\ \text{只有零解}
+}
+\]
+\[
+\bx{
+A\ \text{的列向量组线性无关}\iff A\ \text{的行向量组线性无关}
+}
+\]
+\[
+\bx{
+\lambda_{1},\dots,\lambda_{n}\ \text{均非零}
+\iff r(\lambda E-A)=n,\ \forall\lambda
+}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{伴随矩阵}
+\[
+A^{*}=\left(a_{ij}^{*}\right),\qquad a_{ij}^{*}=A_{ji}
+\qquad\text{（余子式转置；代数余子式 $A_{ij}$ 不转置）}
+\]
+\[
+\bx{AA^{*}=A^{*}A=|A|E},
+\qquad
+A^{-1}=\frac{1}{|A|}A^{*}\ \ (|A|\ne0),
+\qquad
+|A^{*}|=|A|^{\,n-1}
+\]
+\[
+(A^{*})^{*}=|A|^{\,n-2}A,
+\qquad
+(kA)^{*}=k^{\,n-1}A^{*},
+\qquad
+\bx{(AB)^{*}=B^{*}A^{*}}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{矩阵的秩}
+\[
+\begin{aligned}
+r(A)&=r(A^{T})\\
+r(A+B)&\le r(A)+r(B)\\
+\bx{r(AB)}&\le\min\{r(A),\,r(B)\}\\
+r(AB)&\le r(A),\qquad r(AB)\le r(B)\\
+A\ \text{可逆}&\ \Rightarrow\ r(AB)=r(BA)=r(B)\\
+AB=\boldsymbol 0&\ \Rightarrow\ r(A)+r(B)\le n
+\qquad\text{（$A$ 为 $m\times n$ 矩阵）}\\
+r(A+E)&\le r(A)+1,\qquad r(A\cdot B)\le r(A)\cdot r(B)
+\end{aligned}
+\]
+\[
+\bx{r(A)=n\iff |A|\ne0\iff A\ \text{可逆}\iff Ax=\boldsymbol 0\ \text{只有零解}}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{初等变换、初等矩阵与等价}
+\[
+\begin{gathered}
+\text{初等变换：}\quad
+\text{交换两行（列）}\ \big|\ \text{某行（列）}\times k\ (k\ne0)\ \big|\ \text{某行（列）}+k\times\text{另一行（列）}\\[4pt]
+E\ \text{可逆},\qquad r(EA)=r(A),\qquad E_{i}\cdots E_{k}A=E_{i}\cdots E_{k}B\iff A\ \text{与}\ B\ \text{等价}\\
+A\sim B\iff \exists\,P,Q\ \text{可逆},\ PAQ=B
+\iff \text{同型且}\ r(A)=r(B)
+\end{gathered}
+\]
+\[
+\bx{\text{求秩（通用法）：}\quad A\xrightarrow{\text{初等行变换}}\text{行最简形}\ \Rightarrow\ r(A)=\text{非零行数}=\text{非零列数}}
+\]
+\[
+\text{求逆（初等行变换法）：}\quad
+\left(\begin{array}{c|c}A&E\end{array}\right)
+\xrightarrow{\text{仅行变换}}
+\left(\begin{array}{c|c}E&A^{-1}\end{array}\right)
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{分块矩阵}
+\[
+\begin{vmatrix}A&B\\ O&C\end{vmatrix}
+=\begin{vmatrix}A&O\\ C&D\end{vmatrix}=|A||C|,
+\qquad
+\begin{pmatrix}A&B\\ O&C\end{pmatrix}^{-1}
+=\begin{pmatrix}A^{-1}&-A^{-1}BC^{-1}\\ O&C^{-1}\end{pmatrix}
+\]
+\[
+\begin{pmatrix}A&O\\ O&D\end{pmatrix}^{-1}
+=\begin{pmatrix}A^{-1}&O\\ O&D^{-1}\end{pmatrix},
+\qquad
+\begin{pmatrix}A&B\\ C&D\end{pmatrix}^{T}
+=\begin{pmatrix}A^{T}&C^{T}\\ B^{T}&D^{T}\end{pmatrix}
+\]
+\[
+A\ \text{对称}\iff
+\begin{pmatrix}A&B\\ C&A\end{pmatrix}\ \text{对称}
+\iff A^{T}=A,\ B^{T}=C
+\]
+\end{formbox}
+\end{secbox}
+
+% -------------------------------------------------------------------
+\begin{secbox}[十三、线性代数 · \textcircled{3} 向量]
+
+\begin{formbox}
+$\boldsymbol\beta=k_{1}\boldsymbol\alpha_{1}+\cdots+k_{s}\boldsymbol\alpha_{s}$
+称 $\boldsymbol\beta$ 可由 $\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s}$ \textbf{线性表示}。
+\begin{align*}
+\bx{\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s}\ \text{线性相关}}
+&\iff \exists\ k_{1},\dots,k_{s}\ \text{不全为}\ 0,\ \sum_{i=1}^{s}k_{i}\boldsymbol\alpha_{i}=\boldsymbol 0\\
+&\iff r(\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s})<s\\
+\bx{\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s}\ \text{线性无关}}
+&\iff \sum_{i=1}^{s}k_{i}\boldsymbol\alpha_{i}=\boldsymbol 0\ \Rightarrow\ k_{1}=\cdots=k_{s}=0\\
+&\iff r(\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s})=s
+\end{align*}
+\[
+s>n\ \Rightarrow\ \boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s}\ \text{必线性相关}
+\qquad
+\text{（}\ n\ \text{维空间中最多}\ n\ \text{个无关向量）}
+\]
+\[
+\text{整体无关}\ \Rightarrow\ \text{部分必无关};
+\qquad \text{部分相关}\ \Rightarrow\ \text{整体必相关};
+\qquad \text{反之均不成立}
+\]
+\[
+n\ \text{个}\ n\ \text{维向量无关}\iff |\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{n}|\ne0
+\]
+\[
+\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s}\ \text{无关},\quad
+\boldsymbol\beta_{1},\dots,\boldsymbol\beta_{t}\ \text{无关},\quad
+s+t>n\ \Rightarrow\ \text{两组必线性相关}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{极大线性无关组、秩与等价}
+\[
+r(\boldsymbol\alpha_{1},\dots,\boldsymbol\alpha_{s})
+=r(\text{以它们为列的矩阵})
+=r(\text{行向量组})=r(\text{列向量组})
+\]
+\[
+r(A)=\text{极大无关组的个数}=\text{非零子式的最高阶数}
+\]
+\[
+\begin{aligned}
+&\text{无关组}\ (\mathrm I)\ \text{可由相关组}\ (\mathrm{II})\ \text{线性表出}
+\ \Rightarrow\ r(\mathrm I)\le r(\mathrm{II})\\[3pt]
+&\text{若反之亦可表出}\ \Rightarrow\ r(\mathrm I)=r(\mathrm{II})\ \text{（此时两组等价）}\\[3pt]
+&\text{等价}\ \Rightarrow\ \text{秩相等；}\qquad
+\text{秩相等}\ \not\Rightarrow\ \text{等价}\ \text{（反向不成立）}
+\end{aligned}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{内积与正交规范化（施密特 Schmidt 法）}
+\[
+(\boldsymbol\alpha,\boldsymbol\beta)
+=\boldsymbol\alpha^{T}\boldsymbol\beta=\sum_{i=1}^{n}\alpha_{i}\beta_{i}
+\qquad
+\boldsymbol\alpha\perp\boldsymbol\beta\iff(\boldsymbol\alpha,\boldsymbol\beta)=0
+\]
+\[
+\boldsymbol\xi_{1}=\boldsymbol\alpha_{1},\qquad
+\boldsymbol\xi_{k}=\boldsymbol\alpha_{k}
+-\sum_{i=1}^{k-1}\frac{(\boldsymbol\alpha_{k},\boldsymbol\xi_{i})}{(\boldsymbol\xi_{i},\boldsymbol\xi_{i})}\boldsymbol\xi_{i},
+\quad
+\bx{\boldsymbol\eta_{k}=\frac{\boldsymbol\xi_{k}}{\lVert\boldsymbol\xi_{k}\rVert}}
+\qquad(k=2,3,\dots,s)
+\]
+\[
+\lVert\boldsymbol\alpha\rVert=\sqrt{(\boldsymbol\alpha,\boldsymbol\alpha)},
+\qquad
+(\boldsymbol\alpha,\boldsymbol\beta)=\lVert\boldsymbol\alpha\rVert\lVert\boldsymbol\beta\rVert\cos\theta
+\]
+\end{formbox}
+\end{secbox}
+
+% -------------------------------------------------------------------
+\begin{secbox}[十四、线性代数 · \textcircled{4} 线性方程组]
+
+\begin{formbox}
+设 $m$ 个方程、$n$ 个未知数：
+\[
+\begin{array}{l}
+a_{11}x_{1}+\cdots+a_{1n}x_{n}=b_{1}\\
+\ \vdots\qquad\vdots\qquad\ \vdots\\
+a_{m1}x_{1}+\cdots+a_{mn}x_{n}=b_{m}
+\end{array}
+\quad\Longleftrightarrow\quad
+Ax=\boldsymbol b,\qquad A\ \text{为}\ m\times n\ \text{矩阵}
+\]
+\[
+\text{克莱姆（Cramer）法则：}\quad |A|\ne0\ \Rightarrow\ x_{i}=\frac{|A_{i}|}{|A|}
+\qquad\text{（$A_{i}$ 为 $A$ 中第 $i$ 列换成 $\boldsymbol b$ 所得）}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{齐次方程组 $Ax=\boldsymbol 0$ 的结论}
+\[
+\bx{
+|A|=0\iff r(A)<n\iff Ax=\boldsymbol 0\ \text{有非零解}
+\iff A\ \text{的列向量组线性相关}
+}
+\]
+\[
+n-r(A)\ \text{个线性无关的解向量构成\textbf{基础解系}}
+\qquad
+\bx{\text{通解}\ x=k_{1}\boldsymbol\eta_{1}+\cdots+k_{n-r(A)}\boldsymbol\eta_{n-r(A)}}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{非齐次方程组 $Ax=\boldsymbol b$ 的解的判定}
+\[
+\bxe{
+\begin{array}{ll}
+r(A)<r\big(A\mid\boldsymbol b\big) & \text{无解}\\[3pt]
+r(A)=r\big(A\mid\boldsymbol b\big)=n & \text{唯一解}\\[3pt]
+r(A)=r\big(A\mid\boldsymbol b\big)<n & \text{有无穷多解}
+\end{array}}
+\qquad\qquad
+\bx{r\big(A\mid\boldsymbol b\big)-r(A)\le1}
+\]
+\[
+r\big(A\mid\boldsymbol b\big)=\max\{r(A),r\big(A\mid\boldsymbol b\big)\}
+\]
+\[
+\bx{
+\text{通解}\ x=\boldsymbol x_{0}
++k_{1}\boldsymbol\eta_{1}+\cdots+k_{n-r(A)}\boldsymbol\eta_{n-r(A)}
+}
+\quad
+\begin{gathered}
+\boldsymbol x_{0}:\ Ax_{0}=\boldsymbol b\ \text{的一个特解}\\
+\boldsymbol\eta_{1},\dots,\boldsymbol\eta_{n-r(A)}:\ Ax=\boldsymbol 0\ \text{的一组基础解系}\\
+\text{自由度：}\ n-r(A)
+\end{gathered}
+\]
+\[
+\text{解的性质：}\quad
+Ax=\boldsymbol b\ \text{通解}\
+\boldsymbol x_{1},\boldsymbol x_{2}
+\ \Rightarrow\ \text{它们的任意线性组合仍为解；}\quad
+k(\boldsymbol x_{1}-\boldsymbol x_{2})\ \text{为}\ Ax=\boldsymbol 0\ \text{的解}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{含参数方程组的讨论（通法）}
+\[
+\left(\begin{array}{c|c}A&\boldsymbol b\end{array}\right)
+\ \overset{\text{初等行变换}}{\longrightarrow}\ \text{阶梯形}
+\quad\text{再比较}\quad r(A)\ \text{与}\ r\big(A\mid\boldsymbol b\big)
+\]
+\[
+\left\{
+\begin{array}{ll}
+\text{出现}\ 0=1\ \text{或}\ 0=k\ (k\ne0) & \Rightarrow\ \text{无解}\\[4pt]
+\text{无矛盾行，}\ r(A)=r\big(A\mid\boldsymbol b\big)=n & \Rightarrow\ \text{唯一解}\\[4pt]
+\text{无矛盾行，}\ r(A)=r\big(A\mid\boldsymbol b\big)<n & \Rightarrow\ \text{无穷多解}
+\end{array}
+\right.
+\]
+\end{formbox}
+\end{secbox}
+
+% -------------------------------------------------------------------
+\begin{secbox}[十五、线性代数 · \textcircled{5} 特征值与特征向量]
+
+\begin{formbox}
+\[
+\exists\,\lambda,\ \boldsymbol\xi\ne\boldsymbol 0,\quad
+\bx{A\boldsymbol\xi=\lambda\boldsymbol\xi}
+\quad\Longleftrightarrow\quad
+|\lambda E-A|=0
+\]
+$\lambda$ 为 $A$ 的特征值，$\boldsymbol\xi$ 为属于 $\lambda$ 的特征向量。
+\[
+\text{特征多项式}\ f(\lambda)=|\lambda E-A|
+=\lambda^{n}-a_{11}\lambda^{n-1}+\cdots+(-1)^{n}|A|
+\]
+\[
+\text{特征值}\ \lambda_{1},\dots,\lambda_{n}\text{ 的基本关系：}\quad
+\bx{\sum_{i=1}^{n}\lambda_{i}=\sum_{i=1}^{n}a_{ii}=\operatorname{tr}(A)
+=\operatorname{tr}(A^{k})\ \ (k\in\mathbb N^{*})}
+\qquad
+\bx{\prod_{i=1}^{n}\lambda_{i}=|A|}
+\]
+\[
+\lambda_{1}+\cdots+\lambda_{n}=
+\ \lambda_{1}^{k}+\cdots+\lambda_{n}^{k}
+=\operatorname{tr}(A^{k})
+\qquad\text{（}\ k\ \text{重特征值按重数计）}
+\]
+\[
+\begin{aligned}
+&|A|\ne0\ \Rightarrow\ \frac1{\lambda}\ \text{是}\ A^{-1}\ \text{的特征值}\\[3pt]
+&\qquad \frac{|A|}{\lambda}\ \text{是}\ A^{*}\ \text{的特征值}\\[3pt]
+&\lambda^{k}\ \text{是}\ A^{k}\ \text{的特征值}\\[3pt]
+&\lambda_{1}\ne\lambda_{2}\ \Rightarrow\
+\xi_{1},\xi_{2}\ \text{分别对应的特征向量}\ \xi_{1}^{T}\xi_{2}=0\\[3pt]
+&\xi,\eta\ \text{为}\ \lambda\ \text{的特征向量}\ \Rightarrow\
+&k\xi+l\eta\ \text{为}\ \lambda\ \text{的特征向量（当两者线性无关时）}\\[3pt]
+&\xi\ \text{为}\ A\ \text{的特征向量}\ \Rightarrow\ \xi\ \text{为}\ A^{T}\ \text{的特征向量}\\[3pt]
+&\text{上（下）三角矩阵的特征值：}\ \text{主对角线元素}
+\end{aligned}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{相似矩阵与相似对角化}
+\[
+B=P^{-1}AP\iff PA=BP
+\quad\Longrightarrow\quad P\ \text{可逆}
+\qquad\text{称}\ A\ \text{与}\ B\ \text{相似，记}\ A\sim B
+\]
+\[
+A\sim B\ \Rightarrow\
+\begin{array}{l}
+r(A)=r(B)\\
+|A|=|B|,\quad \operatorname{tr}(A)=\operatorname{tr}(B)\\
+\operatorname{tr}(A^{k})=\operatorname{tr}(B^{k})\\
+\text{特征值相同（含重数）}\\
+A^{k}\sim B^{k}
+\end{array}
+\qquad\qquad
+\bx{B=P^{-1}AP\ \Rightarrow\ A^{k}=P\,B^{k}\,P^{-1}}
+\]
+\[
+\bx{
+A\ \text{可相似对角化}
+\iff \exists\ n\ \text{个线性无关的特征向量}
+}
+\]
+\[
+\bx{k\ \text{重特征值}\ \lambda\ \text{有}\ k\ \text{个线性无关的特征向量}}
+\]
+\[
+\bx{
+A=P\Lambda P^{-1},\quad
+\Lambda=\operatorname{diag}(\lambda_{1},\dots,\lambda_{n}),\ P\ \text{可逆}
+}
+\qquad
+A^{k}=P\Lambda^{k}P^{-1},
+\quad
+\Lambda^{k}=\operatorname{diag}(\lambda_{1}^{k},\dots,\lambda_{n}^{k})
+\]
+\[
+P_{1},\Lambda_{1}\ \text{与}\ P_{2},\Lambda_{2}\ \text{分别把}\ A\ \text{对角化}
+\ \Rightarrow\ P_{2}^{-1}P_{1}\ \text{与}\ \Lambda_{2}^{-1}\Lambda_{1}\ \text{均可交换}
+\]
+\hd{相似与合同的区别（高频易混）}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline
+ & 相似 $A\sim B$ & 合同 \\ \hline
+关系式 & $B=P^{-1}AP$ & $B=P^{T}AP$ \\ \hline
+允许的变换 & 初等行变换 & 初等行\textbf{列}变换 \\ \hline
+保持不变 & 特征值、行列式、迹、秩 & 秩、行列式、迹、标准形系数 \\ \hline
+典型用途 & 相似对角化、求 $A^{k}$ & 化二次型为标准形 \\ \hline
+$P$ 为正交矩阵时 & 正交相似对角化 & 同时也是合同变换 \\ \hline
+\end{tabular}
+\end{center}
+\end{formbox}
+
+\begin{formbox}
+\hd{实对称矩阵 $A$（$A^{T}=A$）的性质}
+\[
+\begin{gathered}
+\boxed{\text{特征值全为实数}\qquad
+\text{不同特征值对应的特征向量相互正交}\qquad
+\text{一定可相似对角化}}\\[5pt]
+\text{（可用正交矩阵}\ Q:/ Q^{T}AQ=\Lambda\text{）}\\[5pt]
+\lambda_{1}\ne\lambda_{2}\ \Rightarrow\ \xi_{1}^{T}\xi_{2}=0\\[4pt]
+k\ \text{重特征值对应}\ k\ \text{维特征子空间，可从中取出}\ k\ \text{个正交单位特征向量}\\[4pt]
+|A|\ \text{为实数};\qquad |\lambda E-A|\ \text{为实系数多项式};\qquad
+Q^{T}AQ=\Lambda\ \Rightarrow\ A\ \text{可合同对角化}
+\end{gathered}
+\]
+\[
+\text{重根情形：若}\ \xi_{1},\xi_{2}\ \text{不正交，需先施密特正交化再单位化}
+\]
+\end{formbox}
+\end{secbox}
+
+% -------------------------------------------------------------------
+\begin{secbox}[十六、线性代数 · \textcircled{6} 二次型]
+
+\begin{formbox}
+\[
+f(x_{1},\dots,x_{n})=\sum_{i=1}^{n}a_{ii}x_{i}^{2}
++2\sum_{i<j}a_{ij}x_{i}x_{j}
+\quad\Longleftrightarrow\quad
+\bx{f(\boldsymbol x)=\boldsymbol x^{T}A\boldsymbol x},
+\qquad A=A^{T}
+\]
+\[
+f=\boldsymbol x^{T}A\boldsymbol x,\ \ \boldsymbol y^{T}B\boldsymbol y
+\quad(A,B\ \text{对称})\ \Rightarrow\
+A\ \text{与}\ B\ \text{合同}\ \Longrightarrow\ f\equiv g
+\quad\Longleftrightarrow\quad \boldsymbol x=C\boldsymbol y,\ A=C^{T}BC
+\]
+\[
+A\ \text{对称}\iff\ \text{二次型矩阵唯一确定}:
+\quad f\ \text{写成}\ \boldsymbol x^{T}A\boldsymbol x,\ A\ \text{可取}\ \frac{A+A^{T}}{2}
+\]
+\[
+r(f)=r(A)=\text{非零系数项的个数}=\text{标准形中非零系数个数}
+=\text{规范形中系数为}\ \pm1\ \text{的个数}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{标准形、规范形与惯性定理}
+\[
+\begin{gathered}
+\text{标准形：}\quad f=\lambda_{1}y_{1}^{2}+\cdots+\lambda_{r}y_{r}^{2}\ \ (\lambda_{i}\ne0)\\[4pt]
+\text{规范形：}\quad f=y_{1}^{2}+\cdots+y_{p}^{2}-y_{p+1}^{2}-\cdots-y_{r}^{2}\\[4pt]
+\bx{\text{惯性定理：}\quad r,\ p,\ q\ \text{在合同变换下均保持不变}\ (r=p+q)}
+\end{gathered}
+\]
+\[
+\bx{
+\text{任意合同变换}\ P^{T}AP=B\ \Rightarrow\ r(A)=r(B)
+}
+\]
+\[
+\bx{\text{正惯性指数相同，负惯性指数相同}}
+\]
+\[
+\text{实对称矩阵的任一特征向量系（含重根的}\ k\ \text{维正交单位基）}
+\ \Longrightarrow \ \text{正交相似对角化}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{正交变换化二次型为标准形（数三重点流程）}
+\[
+\bxe{
+\begin{gathered}
+\text{① 写出二次型矩阵}\ A\ (A=A^{T})\\[4pt]
+\text{② 求特征值：}\ |\lambda E-A|=0\ \Rightarrow\ \lambda_{1},\lambda_{2},\lambda_{3}
+\quad\textcolor{black!55}{\textstyle \sum\lambda_{i}=\operatorname{tr}(A),\ \prod\lambda_{i}=|A|}\\[4pt]
+\text{③ 求特征向量：}\ (\lambda_{i}E-A)\boldsymbol\xi_{i}=\boldsymbol 0\\[4pt]
+\text{④ 重根时}\ \textbf{施密特正交化};\qquad
+\text{⑤ 单位化得}\ \boldsymbol\eta_{1},\boldsymbol\eta_{2},\boldsymbol\eta_{3}\\[4pt]
+\text{⑥ } Q=(\boldsymbol\eta_{1}\,\boldsymbol\eta_{2}\,\boldsymbol\eta_{3})\ \text{为正交矩阵，}\ 
+Q^{T}AQ=\Lambda=\operatorname{diag}(\lambda_{1},\lambda_{2},\lambda_{3})\\[4pt]
+\Rightarrow\ \boldsymbol x=Q\boldsymbol y,\qquad
+\bx{f=\lambda_{1}y_{1}^{2}+\lambda_{2}y_{2}^{2}+\lambda_{3}y_{3}^{2}}
+\end{gathered}}
+\]
+\[
+Q^{T}Q=E
+\quad\Rightarrow\quad
+|\boldsymbol x_{1}|^{2}+|\boldsymbol x_{2}|^{2}+|\boldsymbol x_{3}|^{2}
+=|\boldsymbol y_{1}|^{2}+|\boldsymbol y_{2}|^{2}+|\boldsymbol y_{3}|^{2}
+\quad\text{（}\ Q\ \text{保持长度与夹角）}
+\]
+\hd{配方法化标准形}
+\[
+\bx{\text{配方（变量平方项配方）}\ \longrightarrow\ \text{变量非平方项配方（凑完全平方）}
+\ \longrightarrow\ \text{标准形}}
+\]
+\[
+\boldsymbol x=C\boldsymbol y\ (C\ \text{可逆})\ \Rightarrow\ C^{T}AC=\Lambda\ (\text{标准形}),
+\qquad \text{注意 } C\ \text{是合同变换矩阵，}\ \text{不是正交矩阵}
+\]
+\end{formbox}
+
+\begin{formbox}
+\hd{正定与半正定（$A$ 为实对称矩阵）}
+\[
+\bx{
+A\ \text{正定}
+\iff \forall\,\boldsymbol x\ne\boldsymbol 0\,\ \boldsymbol x^{T}A\boldsymbol x>0
+\iff \lambda_{1},\dots,\lambda_{n}>0
+}
+\]
+\[
+\bx{
+\iff r(A)=n\ \text{且}\ |A|>0
+\iff \Delta_{k}>0,\ k=1,\dots,n
+\iff A=C^{T}C\ (C\ \text{可逆})
+}
+\]
+\[
+\bx{
+A\ \text{正定}\ \Rightarrow
+a_{ii}>0,\ \boldsymbol x^{T}A\boldsymbol x\ \text{无零点},\ \lambda_{max}>0
+}
+\]
+\[
+\bx{|A_{i}|>0,\ \text{即任意阶顺序主子式均正}}
+\]
+\[
+\begin{aligned}
+&A\ \text{半正定}
+\iff \boldsymbol x^{T}A\boldsymbol x\ge0,\ \forall\boldsymbol x
+\iff \lambda_{i}\ge0,\ \forall i
+\iff A=C^{T}C
+\iff A\ \text{的所有}\ \textbf{主子式}\ \ge0\\[4pt]
+&A\ \text{正定}\iff A\ \text{半正定且}\ |A|>0;
+\qquad A\ \text{正定}\Rightarrow A\ \text{半正定}\\[4pt]
+&A\ \text{负定}\iff (-1)^{k}\Delta_{k}>0,\ k=1,\dots,n
+\iff \lambda_{i}<0,\ \forall i\\[4pt]
+&A\ \text{正定}+A\ \text{正定}=A\ \text{正定};\qquad
+A\ \text{正定},\ k>0\ \Rightarrow\ kA\ \text{正定};\qquad
+A\ \text{正定}\ \Rightarrow\ A^{-1}\ \text{正定}\\[4pt]
+&A\ \text{正定},\ B\ \text{任意实对称}\ \Rightarrow\ A\pm B\ \text{不确定}
+\quad\Rightarrow\ \bx{\text{不能把一般矩阵与正定矩阵随意加减}}
+\end{aligned}
+\]
+\end{formbox}
+\end{secbox}
